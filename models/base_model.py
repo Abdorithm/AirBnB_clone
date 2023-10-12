@@ -7,19 +7,23 @@ from datetime import datetime
 
 class BaseModel(cmd.Cmd):
     """Represents BaseModel class"""
-    def __init__(self, id=None, created_at=None, updated_at=None):
-        """initializes base class
-            Args:
-                id (int):
-            Returns:
-                None"""
-        self.id = uuid.uuid4()
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+    def __init__(self, *args, **kwargs):
+        """initializes base class"""
+        for key, val in kwargs.items():
+            date_format = "%Y-%m-%dT%H:%M:%S.%f"
+            if key == "created_at" or key == "updated_at":
+                self.__dict__[key] = strptime(val, date_format)
+            else:
+                self.__dict__[key] = val
+        if kwargs is None:
+            self.id = uuid.uuid4()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """overriding the __str__ method"""
-        return "[BaseModel] ({}) {}".format(self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
 
     def save(self):
         """updates the public instance attribute updated_at with
