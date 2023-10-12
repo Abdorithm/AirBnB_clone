@@ -12,10 +12,10 @@ class BaseModel(cmd.Cmd):
         for key, val in kwargs.items():
             date_format = "%Y-%m-%dT%H:%M:%S.%f"
             if key == "created_at" or key == "updated_at":
-                self.__dict__[key] = strptime(val, date_format)
+                self.__dict__[key] = datetime.strptime(val, date_format)
             else:
                 self.__dict__[key] = val
-        if kwargs is None:
+        if not kwargs:
             self.id = uuid.uuid4()
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
