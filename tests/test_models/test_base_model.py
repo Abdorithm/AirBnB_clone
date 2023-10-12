@@ -8,6 +8,7 @@ import unittest
 from datetime import datetime
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
     """Unittest for testing the BaseModel class."""
 
@@ -17,12 +18,12 @@ class TestBaseModel(unittest.TestCase):
 
     def test_instantiation(self):
         self.assertIsInstance(self.model, BaseModel)
-    
+
     def test_init(self):
         self.assertIsNotNone(self.model.id)
         self.assertIsNotNone(self.model.created_at)
         self.assertIsNotNone(self.model.updated_at)
-    
+
     def test_save(self):
         updated_at = self.model.updated_at
         self.model.save()
@@ -47,7 +48,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("updated_at", self.model_dict)
         self.assertIn("__class__", self.model_dict)
         self.assertEqual(self.model_dict['__class__'], 'BaseModel')
-    
+
     def test_to_dict_added_attributes(self):
         self.model.name = "Abdo"
         self.model.phone = 420
@@ -62,4 +63,3 @@ class TestBaseModel(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
