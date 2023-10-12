@@ -29,10 +29,8 @@ class BaseModel(cmd.Cmd):
     def to_dict(self):
         """returns a dictionary containing
         all keys/values of __dict__ of the instance"""
-        self.__dict__["__class__"] = "BaseModel"
-        for key in self.__dict__:
-            if key == "updated_at":
-                self.__dict__[key] = self.__dict__[key].isoformat()
-            elif key == "created_at":
-                self.__dict__[key] = self.__dict__[key].isoformat()
-        return self.__dict__
+        cp_dict = self.__dict__.copy()
+        cp_dict["created_at"] = self.created_at.isoformat()
+        cp_dict["updated_at"] = self.updated_at.isoformat()
+        cp_dict["__class__"] = self.__class__.__name__
+        return cp_dict
