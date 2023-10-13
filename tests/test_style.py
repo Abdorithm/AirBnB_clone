@@ -18,9 +18,6 @@ class TestStyle(unittest.TestCase):
             result = style.check_files([python_file])
             errors = result.total_errors
 
-            if errors != 0:
-                print(f"violations in {python_file}: {errors} errors")
-
             self.assertEqual(errors, 0, f"violations in {python_file}")
 
 
