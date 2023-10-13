@@ -53,10 +53,10 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-        if "{}.{}".format(argl[0], argl[1]) not in objdict:
+        if "{}.{}".format(argl[0], argl[1]) not in obj_dict:
             print("** no instance found **")
             return
-        print(objdict["{}.{}".format(argl[0], argl[1])])
+        print(obj_dict["{}.{}".format(argl[0], argl[1])])
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id
@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-        if "{}.{}".format(argl[0], argl[1]) not in objdict:
+        if "{}.{}".format(argl[0], argl[1]) not in obj_dict:
             print("** no instance found **")
             return
         del obj_dict["{}.{}".format(argl[0], argl[1])]
