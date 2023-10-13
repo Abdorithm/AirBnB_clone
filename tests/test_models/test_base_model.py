@@ -56,9 +56,26 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("name", self.model_dict)
         self.assertIn("phone", self.model_dict)
 
-    def test_date_attributes_are_str(self):
+    def test_to_dict_datetime_attributes_are_str(self):
         self.assertEqual(str, type(self.model_dict["created_at"]))
         self.assertEqual(str, type(self.model_dict["updated_at"]))
+        self.assertNotEqual(
+            self.model.created_at, self.model_dict["created_at"]
+        )
+        self.assertNotEqual(
+            self.model.updated_at, self.model_dict["updated_at"]
+        )
+
+    def test_date_attributes_are_datetime(self):
+        self.assertEqual(datetime, type(self.model.created_at))
+        self.assertEqual(datetime, type(self.model.updated_at))
+
+    def test_init_with_kwargs(self):
+        model2 = BaseModel(** self.model_dict)
+        self.assertEqual(self.model.id, model2.id)
+        self.assertEqual(self.model.created_at, model2.created_at)
+        self.assertEqual(self.model.updated_at, model2.updated_at)
+        self.assertNotEqual(self.model, model2)
 
 
 if __name__ == '__main__':
