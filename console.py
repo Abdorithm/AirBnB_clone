@@ -5,12 +5,14 @@ import os
 from models import storage
 from models.base_model import BaseModel
 
+
 class HBNBCommand(cmd.Cmd):
     """Represent HBNBCommand class"""
     prompt = "(hbnb) "
     __classes = {
             "BaseModel"
     }
+
     def do_EOF(self, line):
         """Exit the program"""
         return True
@@ -36,6 +38,47 @@ class HBNBCommand(cmd.Cmd):
         print(eval(args[0])().id)
         storage.save()
 
+    def do_show(self, line):
+        """Prints the string representation of an instance
+        based on the class name and id.
+        Usage: show BaseModel 1234-1234-1234."""
+        args = line.split()
+        obj_dict = storage.all()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        if args[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        if "{}.{}".format(argl[0], argl[1]) not in objdict:
+            print("** no instance found **")
+            return
+        print(objdict["{}.{}".format(argl[0], argl[1])])
+
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id
+        (saves the change into the JSON file).
+        Usage: destroy BaseModel 1234-1234-1234."""
+        args = line.split()
+        obj_dict = storage.all()
+        if len(args) == 0:
+            print("** class name missing **")
+            return
+        if args[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) == 1:
+            print("** instance id missing **")
+            return
+        if "{}.{}".format(argl[0], argl[1]) not in objdict:
+            print("** no instance found **")
+            return
+        del obj_dict["{}.{}".format(argl[0], argl[1])]
+        storage.save()
+
     def do_all(self, line):
         """Prints all string representation of all instances.
         Usage: all <class name>"""
@@ -49,11 +92,13 @@ class HBNBCommand(cmd.Cmd):
                 objs.append(obj.__str__())
             elif obj.__class__.__name__ == args[0]:
                 objs.append(obj.__str__())
-        print (objs)
+        print(objs)
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id.
-        Usage: update <class name> <id> <attribute name> \"<attribute value>\""""
+        """
+        Updates an instance based on the class name and id.
+        Usage: update <class name> <id> <attribute name> \"<attribute value>\"
+        """
         args = line.split()
         if len(args) < 1:
             print("** class name missing **")
@@ -64,9 +109,9 @@ class HBNBCommand(cmd.Cmd):
         elif "{}.{}".format(args[0], args[1]) not in storage.all():
             print("** no instance found **")
         elif len(args) < 3:
-            print ("** attribute name missing **")
+            print("** attribute name missing **")
         elif len(args) < 4:
-            print ("** value missing **")
+            print("** value missing **")
         else:
             obj = storage.all()["{}.{}".format(args[0], args[1])]
             attribute_type = type(getattr(obj, args[2]))
