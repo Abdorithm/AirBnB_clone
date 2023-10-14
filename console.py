@@ -53,10 +53,10 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-        if "{}.{}".format(argl[0], argl[1]) not in obj_dict:
+        if "{}.{}".format(args[0], args[1]) not in obj_dict:
             print("** no instance found **")
             return
-        print(obj_dict["{}.{}".format(argl[0], argl[1])])
+        print(obj_dict["{}.{}".format(args[0], args[1])])
 
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id
@@ -73,10 +73,10 @@ class HBNBCommand(cmd.Cmd):
         if len(args) == 1:
             print("** instance id missing **")
             return
-        if "{}.{}".format(argl[0], argl[1]) not in obj_dict:
+        if "{}.{}".format(args[0], args[1]) not in obj_dict:
             print("** no instance found **")
             return
-        del obj_dict["{}.{}".format(argl[0], argl[1])]
+        del obj_dict["{}.{}".format(args[0], args[1])]
         storage.save()
 
     def do_all(self, line):
@@ -100,20 +100,21 @@ class HBNBCommand(cmd.Cmd):
         Usage: update <class name> <id> <attribute name> \"<attribute value>\"
         """
         args = line.split()
+        obj_dict = storage.all()
         if len(args) < 1:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
-        elif "{}.{}".format(args[0], args[1]) not in storage.all():
+        elif "{}.{}".format(args[0], args[1]) not in obj_dict:
             print("** no instance found **")
         elif len(args) < 3:
             print("** attribute name missing **")
         elif len(args) < 4:
             print("** value missing **")
         else:
-            obj = storage.all()["{}.{}".format(args[0], args[1])]
+            obj = obj_dict["{}.{}".format(args[0], args[1])]
             attribute_type = type(getattr(obj, args[2]))
             setattr(obj, args[2], attribute_type(args[3]))
             storage.save()
