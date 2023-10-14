@@ -18,7 +18,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_quit(self, line):
-        """Exit the program"""
+        """Quit command to exit the program"""
         return True
 
     def emptyline(self):
@@ -41,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, line):
         """Prints the string representation of an instance
         based on the class name and id.
-        Usage: show BaseModel 1234-1234-1234."""
+        Usage: show <class name> <id>"""
         args = line.split()
         obj_dict = storage.all()
         if len(args) == 0:
@@ -61,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id
         (saves the change into the JSON file).
-        Usage: destroy BaseModel 1234-1234-1234."""
+        Usage: destroy <class name> <id>"""
         args = line.split()
         obj_dict = storage.all()
         if len(args) == 0:
@@ -92,8 +92,7 @@ class HBNBCommand(cmd.Cmd):
                 all_obj.append(obj.__str__())
             elif obj.__class__.__name__ == args[0]:
                 all_obj.append(obj.__str__())
-        if all_obj:
-            print(all_obj)
+        print(all_obj)
 
     def do_update(self, line):
         """
@@ -116,7 +115,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
         else:
             obj = obj_dict["{}.{}".format(args[0], args[1])]
-            attribute_type = type(getattr(obj, args[2]))
+            attribute_type = type(getattr(obj, args[2], ''))
             setattr(obj, args[2], attribute_type(args[3]))
             storage.save()
 
