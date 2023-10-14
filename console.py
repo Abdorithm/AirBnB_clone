@@ -4,13 +4,15 @@ import cmd
 import os
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
     """Represent HBNBCommand class"""
     prompt = "(hbnb) "
     __classes = {
-            "BaseModel"
+            "BaseModel",
+            "User"
     }
 
     def do_EOF(self, line):
