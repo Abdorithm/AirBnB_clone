@@ -9,7 +9,7 @@ from datetime import datetime
 from models.review import Review
 
 
-class TestBaseModel(unittest.TestCase):
+class TestReview(unittest.TestCase):
     """Unittest for testing the Review class."""
 
     def setUp(self):
