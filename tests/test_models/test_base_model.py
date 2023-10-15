@@ -30,7 +30,7 @@ class TestBaseModel(unittest.TestCase):
             os.rename("tmp", "file.json")
         except IOError:
             pass
- 
+
     def test_instantiation(self):
         self.assertIsInstance(self.model, BaseModel)
 

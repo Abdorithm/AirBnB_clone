@@ -32,9 +32,9 @@ class HBNBCommand(cmd.Cmd):
         try:
             cls = models.classes_dict[args[0]]
         except KeyError:
-            print ("** class doesn't exist **")
+            print("** class doesn't exist **")
             return
-            
+
         print(cls().id)
         models.storage.save()
 
