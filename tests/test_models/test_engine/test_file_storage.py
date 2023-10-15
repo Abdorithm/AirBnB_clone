@@ -71,15 +71,21 @@ class TestFileStorage_methods(unittest.TestCase):
         with self.assertRaises(TypeError):
             models.storage.new(models.base_model.BaseModel(), None)
 
+    def test_new_with_None(self):
+        with self.assertRaises(AttributeError):
+            models.storage.new(None)
+
+
     def test_save(self):
         obj = models.base_model.BaseModel()
         models.storage.new(obj)
         models.storage.save()
+        text = ""
         with open("file.json", "r") as f:
-            obj_dict = json.load(f)
+            text = f.read()
             self.assertIn(
                 "{}.{}".format(obj.__class__.__name__, obj.id),
-                obj_dict
+                text
             )
 
     def test_save_with_args(self):
@@ -114,3 +120,9 @@ class TestFileStorage_methods(unittest.TestCase):
                 "{}.{}".format(obj.__class__.__name__, obj.id),
                 models.storage.all()
         )
+
+    def test_check_json_loading(self):
+        with open("file.json") as f:
+            dic = json.load(f)
+
+            self.assertEqual(isinstance(dic, dict), True)
