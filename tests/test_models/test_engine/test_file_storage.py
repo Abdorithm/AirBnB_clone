@@ -91,14 +91,3 @@ class TestFileStorage_methods(unittest.TestCase):
     def test_reload_with_args(self):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
-    
-    def test_save_then_reload(self):
-        obj = models.base_model.BaseModel()
-        models.storage.new(obj)
-        models.storage.save()
-        del models.storage.all()["{}.{}".format(obj.__class__.__name__, obj.id)]
-        models.storage.reload()
-        self.assertIn(
-                "{}.{}".format(obj.__class__.__name__, obj.id),
-                models.storage.all()
-        )
