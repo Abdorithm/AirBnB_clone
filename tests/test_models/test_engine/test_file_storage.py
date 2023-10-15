@@ -87,13 +87,17 @@ class TestFileStorage_methods(unittest.TestCase):
             models.storage.save(None)
 
     def test_reload(self):
-        obj = models.base_model.BaseModel()
-        models.storage.new(obj)
-        models.storage.save()
-        self.assertIn(
-                "{}.{}".format(obj.__class__.__name__, obj.id),
-                models.storage.all()
-        )
+        _storage = FileStorage()
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
+        with open("file.json", "w") as f:
+            f.write("{}")
+        with open("file.json", "r") as r:
+            for line in r:
+                self.assertEqual(line, "{}")
+        self.assertIs(_storage.reload(), None)
 
     def test_reload_with_args(self):
         with self.assertRaises(TypeError):
