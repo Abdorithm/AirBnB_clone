@@ -5,6 +5,7 @@ Unittest classes:
     TestBaseModel
 """
 import unittest
+import os
 from datetime import datetime
 from models.base_model import BaseModel
 
@@ -13,9 +14,23 @@ class TestBaseModel(unittest.TestCase):
     """Unittest for testing the BaseModel class."""
 
     def setUp(self):
+        try:
+            os.rename("file.json", "tmp")
+        except IOError:
+            pass
         self.model = BaseModel()
         self.model_dict = self.model.to_dict()
 
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("tmp", "file.json")
+        except IOError:
+            pass
+ 
     def test_instantiation(self):
         self.assertIsInstance(self.model, BaseModel)
 
