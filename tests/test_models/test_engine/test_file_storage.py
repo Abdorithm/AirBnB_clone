@@ -20,7 +20,7 @@ class TestFileStorage_instantiation(unittest.TestCase):
     def test_instantiation_with_args(self):
         with self.assertRaises(TypeError):
             FileStorage(None)
-    
+
     def test_storage_initializes(self):
         self.assertEqual(type(models.storage), FileStorage)
 
@@ -29,6 +29,7 @@ class TestFileStorage_instantiation(unittest.TestCase):
 
     def test_objects_is_private_dict(self):
         self.assertEqual(dict, type(FileStorage._FileStorage__objects))
+
 
 class TestFileStorage_methods(unittest.TestCase):
     """Unittest for testing methods of the FileStorage class."""
@@ -48,7 +49,7 @@ class TestFileStorage_methods(unittest.TestCase):
             os.rename("tmp", "file.json")
         except IOError:
             pass
-    
+
     def test_all(self):
         self.assertEqual(dict, type(models.storage.all()))
 
@@ -62,8 +63,8 @@ class TestFileStorage_methods(unittest.TestCase):
         self.assertIn(
                 "{}.{}".format(obj.__class__.__name__, obj.id),
                 models.storage.all()
-        )
- 
+                )
+
     def test_new_with_args(self):
         with self.assertRaises(TypeError):
             models.storage.new(models.base_model.BaseModel(), None)
@@ -83,7 +84,6 @@ class TestFileStorage_methods(unittest.TestCase):
         with self.assertRaises(TypeError):
             models.storage.save(None)
 
-
     def test_reload(self):
         obj = models.base_model.BaseModel()
         models.storage.new(obj)
@@ -96,12 +96,13 @@ class TestFileStorage_methods(unittest.TestCase):
     def test_reload_with_args(self):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
-    
+
     def test_save_then_reload(self):
         obj = models.base_model.BaseModel()
         models.storage.new(obj)
         models.storage.save()
-        del models.storage.all()["{}.{}".format(obj.__class__.__name__, obj.id)]
+        del models.storage.all()["{}.{}".format(obj.__class__.__name__,
+                                                obj.id)]
         models.storage.reload()
         self.assertIn(
                 "{}.{}".format(obj.__class__.__name__, obj.id),
