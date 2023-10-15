@@ -47,6 +47,10 @@ class TestFileStorage_methods(unittest.TestCase):
     def test_all(self):
         self.assertEqual(dict, type(models.storage.all()))
 
+    def test_all_with_args(self):
+        with self.assertRaises(TypeError):
+            models.storage.all(None)
+
     def test_new(self):
         obj = models.base_model.BaseModel()
         models.storage.new(obj)
@@ -54,6 +58,10 @@ class TestFileStorage_methods(unittest.TestCase):
                 "{}.{}".format(obj.__class__.__name__, obj.id),
                 models.storage.all()
         )
+ 
+    def test_new_with_args(self):
+        with self.assertRaises(TypeError):
+            models.storage.new(models.base_model.BaseModel(), None)
 
     def test_save(self):
         obj = models.base_model.BaseModel()
@@ -66,6 +74,11 @@ class TestFileStorage_methods(unittest.TestCase):
                 obj_dict
             )
 
+    def test_save_with_args(self):
+        with self.assertRaises(TypeError):
+            models.storage.save(None)
+
+
     def test_reload(self):
         obj = models.base_model.BaseModel()
         models.storage.new(obj)
@@ -74,3 +87,10 @@ class TestFileStorage_methods(unittest.TestCase):
                 "{}.{}".format(obj.__class__.__name__, obj.id),
                 FileStorage._FileStorage__objects
         )
+
+    def test_reload_with_args(self):
+        with self.assertRaises(TypeError):
+            models.storage.reload(None)
+
+
+
