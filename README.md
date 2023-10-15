@@ -11,4 +11,4 @@ The goal of this project is to write a command interpreter to manage AirBnB obje
 
 # Unittests
 
-- Tested instance initiation and instance method of the <code>BaseModel</code> class.
+- Tested instance initiation and instance methods of the <code>BaseModel</code> class
