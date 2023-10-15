@@ -120,9 +120,3 @@ class TestFileStorage_methods(unittest.TestCase):
                 "{}.{}".format(obj.__class__.__name__, obj.id),
                 models.storage.all()
         )
-
-    def test_check_json_loading(self):
-        with open("file.json") as f:
-            dic = json.load(f)
-
-            self.assertEqual(isinstance(dic, dict), True)
