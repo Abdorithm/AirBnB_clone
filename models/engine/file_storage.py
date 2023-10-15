@@ -22,13 +22,13 @@ class FileStorage:
         """
         Returns a dictionary of objects in storage.
         """
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """
         Adds a new object to storage.
         """
-        FileStorage.__objects[
+        self.__objects[
             "{}.{}".format(obj.__class__.__name__, obj.id)
             ] = obj
 
@@ -36,11 +36,11 @@ class FileStorage:
         """
         Saves the storage dictionary to a JSON file.
         """
-        with open(FileStorage.__file_path, "w") as f:
+        with open(self.__file_path, "w") as f:
             json.dump(
                 {
                     k: v.to_dict()
-                    for k, v in FileStorage.__objects.items()
+                    for k, v in self.__objects.items()
                 },
                 f
             )
@@ -50,7 +50,7 @@ class FileStorage:
         Loads the storage dictionary from a JSON file.
         """
         try:
-            with open(FileStorage.__file_path, "r") as f:
+            with open(self.__file_path, "r") as f:
                 objdicts = json.load(f)
                 for val in objdicts.values():
                     self.new(eval(val["__class__"])(**val))
