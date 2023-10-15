@@ -28,15 +28,12 @@ class TestFileStorage_instantiation(unittest.TestCase):
 class TestFileStorage_methods(unittest.TestCase):
     """Unittest for testing methods of the FileStorage class."""
 
-    @classmethod
     def setUp(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
-        models.storage.reload()
 
-    @classmethod
     def tearDown(self):
         try:
             os.remove("file.json")
