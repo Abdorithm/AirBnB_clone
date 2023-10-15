@@ -33,13 +33,14 @@ class TestFileStorage_instantiation(unittest.TestCase):
 
 class TestFileStorage_methods(unittest.TestCase):
     """Unittest for testing methods of the FileStorage class."""
-
+    @classmethod
     def setUp(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
+    @classmethod
     def tearDown(self):
         try:
             os.remove("file.json")
@@ -62,8 +63,9 @@ class TestFileStorage_methods(unittest.TestCase):
         models.storage.new(obj)
         self.assertIn(
                 "{}.{}".format(obj.__class__.__name__, obj.id),
-                models.storage.all()
+                models.storage.all().keys()
                 )
+        self.assertIn(obj, models.storage.all().values())
 
     def test_new_with_args(self):
         with self.assertRaises(TypeError):
