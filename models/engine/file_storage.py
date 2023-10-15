@@ -10,7 +10,6 @@ from models.place import Place
 from models.review import Review
 
 
-
 class FileStorage:
     """
     Define the storage class.
@@ -56,4 +55,4 @@ class FileStorage:
                 for val in objdicts.values():
                     self.new(eval(val["__class__"])(**val))
         except FileNotFoundError:
-            pass 
+            pass
