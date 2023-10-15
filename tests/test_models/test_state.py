@@ -9,7 +9,7 @@ from datetime import datetime
 from models.state import State
 
 
-class TestBaseModel(unittest.TestCase):
+class TestState(unittest.TestCase):
     """Unittest for testing the State class."""
 
     def setUp(self):
