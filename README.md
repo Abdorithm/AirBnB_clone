@@ -14,3 +14,4 @@ The goal of this project is to write a command interpreter to manage AirBnB obje
 - Tested instance initiation and instance methods of the <code>BaseModel</code> class
 - Tested re-creating an instance given dictionary representation.
 - Tested <code>file storage</code>.
+- Tested State, City, Amenity, Place, Review, classes that inherit from <code>BaseModel</code>
