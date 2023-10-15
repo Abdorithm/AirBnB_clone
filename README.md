@@ -8,3 +8,7 @@ The goal of this project is to write a command interpreter to manage AirBnB obje
 - A simple flow of serialization/deserialization: Instance <-> Dictionary <-> JSON string <-> file.
 - Classes used for AirBnB (User, State, City, Place…) that inherit from BaseModel.
 - An abstracted storage engine of the project: File storage.
+
+# Unittests
+
+- Tested instance initiation and instance method of the <code>BaseModel</code> class.
