@@ -22,5 +22,6 @@ class TestBaseModel(unittest.TestCase):
     def test_attr_empty_string(self):
         self.assertEqual(self.model.name, "")
 
+
 if __name__ == '__main__':
     unittest.main()
