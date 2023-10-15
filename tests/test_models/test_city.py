@@ -9,7 +9,7 @@ from datetime import datetime
 from models.city import City
 
 
-class TestBaseModel(unittest.TestCase):
+class TestCity(unittest.TestCase):
     """Unittest for testing the City class."""
 
     def setUp(self):
