@@ -1,0 +1,12 @@
+footer {
+	display: flex;
+	background-color: green;
+	height: 60px;
+	width: 100%;
+	justify-content: center;
+	position: fixed;
+	bottom: 0;
+}
+span {
+	margin: auto;
+}
